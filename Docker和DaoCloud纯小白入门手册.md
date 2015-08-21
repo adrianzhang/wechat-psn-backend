@@ -8,7 +8,9 @@ Docker是划时代的伟大工具，DaoCloud是优雅的网站，利用它们能
 
 ## 原始时代
 
-![Ghost](./ghost.png)为了不要让一个小白被一堆术语弄昏头，我决定用实际情况来说明Docker。先来回忆一下Windows 98年代使用广泛的Norton Ghost软件（现在属于Symantec公司）。Ghost软件作用是对可运行的系统环境做clone（克隆），形成一个镜像（image），以便Windows 98崩溃以后能够从镜像中迅速恢复一个可用的系统环境。这解决了频繁重装Windows 98的麻烦，而且从镜像恢复比安装更节约时间。它有几种常见用法：
+![Ghost](./ghost.png)
+
+为了不要让一个小白被一堆术语弄昏头，我决定用实际情况来说明Docker。先来回忆一下Windows 98年代使用广泛的Norton Ghost软件（现在属于Symantec公司）。Ghost软件作用是对可运行的系统环境做clone（克隆），形成一个镜像（image），以便Windows 98崩溃以后能够从镜像中迅速恢复一个可用的系统环境。这解决了频繁重装Windows 98的麻烦，而且从镜像恢复比安装更节约时间。它有几种常见用法：
 
 	- 操作系统（例如Windows 98）安装好以后，对C盘（系统盘）做一个clone；
 	- 装完操作系统后再装些软件（例如输入法），然后对系统盘做clone（假设输入法也装在系统盘里）；
@@ -36,7 +38,7 @@ Docker对这个模式进行了Linux和网络世界的完美实现，但是以一
 
 [DaoCloud][2]不仅仅充当虚拟机母平台，以及有个**docker image**仓库，还将**docker node**一起管理起来。这句话是什么意思呢？原始时代，在一个硬件机器或虚拟机上的操作系统里安装虚拟化软件（例如Vmware），这个环境就成了虚拟机母平台，在其上可以建多个不同的虚拟机。**docker软件**就是虚拟化软件，**docker node**就是一个安装了**docker软件**的硬件机器或虚拟机，也就相当于一个原始时代的虚拟机母平台。比原始时代虚拟机只能在自己的局域网中不同母平台上迁移这种状况更妙的是，[DaoCloud][2]将这些个虚拟机母平台组成了一个“云”，可以把任意一个**docker node**当成容器，无论这个**docker node**在哪里（可以在你自己家的树莓派上、台式电脑或笔记本里，也可以在AWS上）。如果遇到原始时代的那个经典问题——机器性能不够，需要把开发环境迁移到性能更好的机器上去，那么只需要将**docker image**重新部署到新容器上。我们可以看到，docker的各个组成成分都在网络上，包括docker file都可以抄别的人然后修修改改，源镜像和自己的镜像以及构建过程都在网络中进行，只需要几分钟即可拥有自己的运行着的环境。于是原始时代的手工低效被这种网络化的流水线彻底取代。
 
-至此，Docker和DaoCloud是什么以及能做什么，都已经介绍完毕。那么我们怎么利用这套系统呢？先去[DaoCloud][2]注册一个帐户，个人设置中关联自己的GitHub帐号，登录进去，在[GitHub][3]上找找别人的docker file，fork到自己[GitHub][3]帐户下的Repository里，跟着[DaoCloud][2]的入门手册和视频，在DaoCloud控制面板里点击“构建”（选择自己GitHub里有dockerfile的那个repository）、“部署”、点完这几个按钮后，便能获取一个运行着的开发环境。可能有些人还想在开发环境运行起来以后登录进去，那么找找编写docker file的参考资料，里面会有介绍。
+至此，Docker和DaoCloud是什么以及能做什么，都已经介绍完毕。那么我们怎么利用这套系统呢？先去[DaoCloud][2]注册一个帐户，个人设置中关联自己的GitHub帐号，登录进去，在[GitHub][3]上找找别人的docker file，fork到自己[GitHub][3]帐户下的Repository里，跟着[DaoCloud][2]的[入门手册][4]和[视频][5]，在DaoCloud控制面板里点击“构建”（选择自己GitHub里有dockerfile的那个repository）、“部署”、点完这几个按钮后，便能获取一个运行着的开发环境。可能有些人还想在开发环境运行起来以后登录进去，那么找找编写docker file的参考资料，里面会有介绍。
 
 小白们如果还有不明白的地方，欢迎来邮件询问，这篇文章将根据需要进行更新，力图最最白的那位小白也能看懂，从此开始学习docker技术，妥善利用[DaoCloud][2]网站，节省开发部署所用的时间。因为：时间就是生命。
 
@@ -44,5 +46,7 @@ Docker对这个模式进行了Linux和网络世界的完美实现，但是以一
 [1]: <http://www.docker.com>
 [2]: <http://www.daocloud.io>
 [3]: <http://www.github.com>
+[4]: <http://help.daocloud.io/>
+[5]: <http://7u2psl.com2.z0.glb.qiniucdn.com/daocloud_small.mp4>
 
 作者：Adrian Zhang，adrian@favap.com
