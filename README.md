@@ -12,11 +12,13 @@
 
 更好玩的是：在[DaoCloud][1]的管理下，我们可以将环境的不同组件部署到不同的地方去——应用主机可以放在AWS的VPS上，数据库可以放在RackSpace或阿里云、腾讯云、微软Arzur云平台上，存储放到七牛云。实现了应用环境的分布式。甚至高兴的话，把应用主机部署在自己家里的树莓派上，哪怕没有公网IP也可以！
 
-那么对于开发者，这个Repository到底有什么好处呢？这个Repository里有构建环境必要的Dockfile和配置文件yaml，只需要fork这个Repository，然后您本人的GitHub目录下就有了同名repository，把自己的Python代码push到这个同名repository里，使用[DaoCloud][1]，点两下鼠标就能在几分钟之内发布自己的微信服务号后台，在微信公众号配置页面开发者模式中关联这个后台，微信公众号立刻可用。相比较原先需要几个小时乃至几天的安装、配置环境、部署代码、运行，大大节省了时间。
-
 ## Docker
 
 若第一次看到Docker这个词，请参考[《Docker和DaoCloud纯小白入门手册》][3]来了解它。若有了一定了解，那么这个Repository里的dockerfile就是用来构建docker image的。目标是形成一个开箱即用的用于开发微信公众号后台的App Engine，当然了，这个App Engine与其他SAE/GAE等不同的地方在于它完全是属于开发者自己的。
+
+## 使用方法
+
+那么对于开发者，这个Repository到底有什么好处呢？这个Repository里有构建环境必要的Dockfile和配置文件yaml，只需要fork这个Repository，然后您本人的GitHub目录下就有了同名repository，把自己的Python代码push到这个同名repository里，使用[DaoCloud][1]，点两下鼠标就能在几分钟之内发布自己的微信服务号后台，在微信公众号配置页面开发者模式中关联这个后台，微信公众号立刻可用。相比较原先需要几个小时乃至几天的安装、配置环境、部署代码、运行，大大节省了时间。
 
 [1]: <http://www.daocloud.io>
 [2]: <http://www.qiniu.com>
