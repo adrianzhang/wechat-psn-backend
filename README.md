@@ -1,5 +1,5 @@
 # wechat-psn-backend
-一个微信公众号（服务号，Public Service Number）后台环境（Linux+python+werobot+web），使用[DaoCloud网站][1]来管理运行，使用者几分钟即可拥有自己的类似SAE/GAE/BAE云的应用开发平台，只要部署了自己的代码，即可在几秒钟内提供微信订阅号/服务号后台服务。
+一个微信公众号（服务号，Public Service Number）后台环境（Linux+python+werobot+web），使用[DaoCloud网站][1]或[灵雀云][4]来管理运行，使用者几分钟即可拥有自己的类似SAE/GAE/BAE云的应用开发平台，只要部署了自己的代码，即可在几秒钟内提供微信订阅号/服务号后台服务。
 
 ## 起源
 这个项目的起源是被逼无奈。起初，在SAE上申请个账号，申请了应用空间。结果遇到了巨大的麻烦：
@@ -12,6 +12,9 @@
 
 更好玩的是：在[DaoCloud][1]的管理下，我们可以将环境的不同组件部署到不同的地方去——应用主机可以放在AWS的VPS上，数据库可以放在RackSpace或阿里云、腾讯云、微软Arzur云平台上，存储放到七牛云。实现了应用环境的分布式。甚至高兴的话，把应用主机部署在自己家里的树莓派上，哪怕没有公网IP也可以！
 
+## [灵雀云][4]
+这是另一个类似DaoCloud的网站，用来作为网络Docker系统实现，可以网络式构建docker image，然后直接部署在灵雀云的容器中，上线！
+
 ## Docker
 
 若第一次看到Docker这个词，请参考[《Docker和DaoCloud纯小白入门手册》][3]来了解它。若有了一定了解，那么这个Repository里的dockerfile就是用来构建docker image的。目标是形成一个开箱即用的用于开发微信公众号后台的App Engine，当然了，这个App Engine与其他SAE/GAE等不同的地方在于它完全是属于开发者自己的。
@@ -23,3 +26,4 @@
 [1]: <http://www.daocloud.io>
 [2]: <http://www.qiniu.com>
 [3]: <./Docker和DaoCloud纯小白入门手册.md>
+[4]: <http://www.alauda.cn>
