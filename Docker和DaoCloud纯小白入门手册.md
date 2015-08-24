@@ -18,7 +18,7 @@
 - 装完操作系统后再装些软件（例如输入法），然后对系统盘做clone（假设输入法也装在系统盘里）；
 - 或者装完操作系统，再装完软件（比如photoshop），然后对photoshop做一些自己习惯的配置，最后再clone。
 
-显然，将更多的手工工作clone到image里，更能够节约二次安装的时间和人工劳动。
+显然，将更多的手工工作clone到image里，更能够节约多次安装的时间和人工劳动。
 
 Docker对这个模式进行了Linux和网络世界的完美实现，但是以一种更网络化的方式实现，更加节省时间和更加灵活。接着来看没有Docker以前在Linux和网络世界会遇到什么情况：
 
@@ -46,7 +46,7 @@ Docker对这个模式进行了Linux和网络世界的完美实现，但是以一
 2. **不同软件环境服务器的安装**
 3. **不同硬件环境的相同软件环境的安装**
 
- Ghost方式解决的是第1和3类型的问题，3还没解决好（硬件驱动不同）。而因为Linux体系的不同特性，没有类似Norton Ghost这样的软件。对于这三大痛点解决方案是：Linux系统有着可以网络安装的特性，操作系统和软件都放在局域网的服务器上，在安装不同软件环境的时候，使用相应的脚本来进行网络化安装，减少一些手工操作。即便如此，毕竟一个个的软件包都需要下载、解包、安装，也不如clone这种方式节约时间。以上这些，还没有把代码部署和把服务器连到网络上（上线）的痛点都解决。
+Ghost方式解决的是第1和3类型的问题，3还没解决好（硬件驱动不同）。而由于Linux体系的不同特性，没有类似Norton Ghost这样的软件。对于这三大痛点解决方案是：Linux系统有着可以网络安装的特性，操作系统和软件都放在服务器上，在安装不同软件环境的时候，使用相应的脚本来进行网络化安装，减少一些手工操作。即便如此，毕竟一个个的软件包都需要下载、解包、安装，也不如clone这种方式节约时间。以上这些，还没有把代码部署和把服务器连到网络上（上线）的痛点都解决。
 
 虚拟技术出现以后，使用虚拟机能够更方便一点解决第3个痛点。在硬件服务器操作系统中安装虚拟化软件（例如VMware）生成虚拟机母平台，在虚拟机母平台上产生多个虚拟机（没装操作系统的），再在这些虚拟机中安装软件环境，如果遇到上述那个经典问题——机器性能不够，需要把开发环境迁移到性能更好的机器上去，那么只需要将虚拟机迁移到更好硬件平台的虚拟机母平台上去并给虚拟机分配更多的资源。
 
@@ -56,23 +56,29 @@ Docker对这个模式进行了Linux和网络世界的完美实现，但是以一
 
 终于，一群聪明人实在受不了天天把时间耗费在无穷无尽的安装配置中。他们发明了**Docker**来解决这些问题。[Docker][1]用**docker image**（中文叫做**Docker镜像**）来代替原始时代的镜像（或光盘），用**docker file**来取代自动安装脚本，用**docker node**来代替虚拟机母平台，用**容器**来代替虚拟机。综合了原始时代所有的优点使得Linux和网络实现了完全自动化。
 
+![]()
+
 **docker image**存储在[Docker][1]专门配置的网络仓库[Docker Hub][6]或[DaoCloud][2]这样的Docker云服务商的网络仓库中(任何人都可以建立这样的网络仓库，通过web服务发布这些镜像)。
 
-**docker file**可以引用已经存在于网络仓库里的docker镜像，在其基础上继续定制的新docker镜像。所谓引用就是在docker file的开头写一句基于哪个镜像（语法是：`FROM 镜像库/镜像名`）。想让多少工序自动化，就可以将多少工序写在docker file里。甚至连web应用代码上传也可以在docker file里写命令实现。最终，只需要写好docker file，不停更新代码，就实现了web应用的全自动上线。从而节省大量的时间以及人工重复性工作。
+**docker file**可以引用已经存在于网络仓库里的docker镜像，在其基础上继续定制的新docker镜像。所谓引用就是在docker file的开头写一句基于哪个镜像（语法是：`FROM 镜像库/镜像名`）。想让多少工序自动化，就可以将多少工序写在docker file里。甚至连web应用代码的部署也可以在docker file里写命令实现。最终，只需要写好docker file，不停更新代码，就实现了web应用的全自动上线。从而节省大量的时间以及人工重复性工作。
 
 执行docker file生成新docker image的操作，叫做**“构建”**。整个构建过程可以理解为：将源docker image运行起来，按照docker file里的命令安装一些软件或者做一些配置，这一切做完以后，将整个环境制作成一个新docker image。
 
-实际上源image并不运行，只是在docker file里写一些对其的操作。由于image具有不可直接修改的属性，这些操作语句将被包含在新image里，新image运行的时候才会执行。Docker术语体系中，每执行一条docker file里的命令，叫做增加一个“层”，无论这个“层”干的活是安装还是删除。如果想从源docker镜像里删除某些软件后形成新的docker镜像，那么就在docker file里写入删除那些软件的语句，新构建生成的docker image*运行起来*就没有那些软件了，但新docker image本身不比源image小。
+	实际上源image并不运行，只是在docker file里写一些对其的操作。由于image具有不可直接修改的属性，这些操作语句将被包含在新image里，新image运行的时候才会执行。Docker术语体系中，每执行一条docker file里的命令，叫做增加一个“层”，无论这个“层”干的活是安装还是删除。如果想从源docker镜像里删除某些软件后形成新的docker镜像，那么就在docker file里写入删除那些软件的语句，新构建生成的docker image*运行起来*就没有那些软件了，但新docker image本身不比源image小。
 
-引用带来的好处是减少制作新docker image所需要的处理时间。
+引用带来的好处是减少制作新docker image所需要的处理时间。举个例子：
 
-举个例子：源镜像是Linux操作系统，那么可以引用它并制作出一个含有Linux+Apache+PHP的docker镜像，现在就有了两个可以充当源镜像的docker镜像。如果要制作标准的LAMP（Linux+Apache+MySQL+PHP）web服务器的docker镜像，只需要引用Linux+Apache+PHP这个源镜像，再在docker file里添加一句：下载并安装MySQL（语法请参考docker file相关文档，这里不多介绍），就成了。节约了下载安装Apache和PHP的时间。
+	源镜像是Linux操作系统，那么可以引用它并制作出一个含有Linux+Apache+PHP的docker镜像，现在就有了两个可以充当源镜像的docker镜像。如果要制作标准的LAMP（Linux+Apache+MySQL+PHP）web服务器的docker镜像，只需要引用Linux+Apache+PHP这个源镜像，再在docker file里添加一句：下载并安装MySQL（语法请参考docker file相关文档，这里不多介绍），就成了。节约了下载安装Apache和PHP的时间。
 
+'''
 docker image需要在**容器**中运行。将docker image调入容器运行的动作叫做**“部署”**。容器由**Docker node**提供。Docker体系中，**docker软件**（也就是很多文章里提到的下载、安装、配置的docker server）是虚拟化软件，docker node就是一个安装了docker软件的硬件机器（或者不用硬件机器，而是用VMware和其他类似的虚拟机），从而成为了Docker虚拟机母平台，docker虚拟机就是容器。通过操作docker软件，可以在docker node上创建多个容器。
 
-因此，Docker体系采用docker file和docker image实现了原始时代无法实现的clone方式还囊括了代码上传，这是基于docker软件、docker node以及容器模拟的原始时代虚拟机平台运作方法。
+在DaoCloud这样的Docker云服务商体系中，创建**“服务”**用来将指定的docker image部署到指定的容器，并完成启动。
 
-而Docker Hub和[DaoCloud][2]这样的云Docker服务商，为这条流水线完成了最后一环——使所有的步骤都在网络上进行，将上线也自动化了。
+因此，Docker体系采用docker file和docker image实现了原始时代无法实现的clone方式还囊括了代码上传，这是基于docker软件、docker node以及容器模拟的原始时代虚拟机平台运作方法。
+'''
+
+而[Docker Hub][6]和[DaoCloud][2]这样的云Docker服务商，为这条流水线完成了最后一环——使所有的步骤都在网络上进行，将上线也自动化了。
 
 - 它们存储了足够多种类的源docker镜像，使定制image需要的安装步骤尽可能少，甚至一些源镜像可以直接上线
 - 用足够强大的服务器来构建docker image
