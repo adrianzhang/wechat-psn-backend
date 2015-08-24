@@ -38,15 +38,15 @@ Docker对这个模式进行了Linux和网络世界的完美实现，但是以一
 
 ## 解决原始时代的问题
 
-终于，一群聪明人实在受不了天天把时间耗费在无穷无尽的安装配置中。他们发明了**Docker**来解决这些问题。[Docker][1]用**docker image**（中文叫做**Docker镜像**）来代替原始时代的镜像（或光盘），用**docker file**来代替自动安装脚本，用**Docker node**来代替虚拟机母平台，用**容器**来取代原始时代的虚拟机。
+终于，一群聪明人实在受不了天天把时间耗费在无穷无尽的安装配置中。他们发明了**Docker**来解决这些问题。[Docker][1]用**docker image**（中文叫做**Docker镜像**）来代替原始时代的镜像（或光盘），用**docker file**来代替自动安装脚本，用**docker node**来代替虚拟机母平台，用**容器**来取代原始时代的虚拟机。
 
 **docker image**存储在[Docker][1]专门配置的网络仓库[Docker Hub][6]或[DaoCloud][2]这样的Docker云服务商的网络仓库中，人人都可以建立这样的网络仓库，通过web服务发布这些镜像。
 
-**docker file**可以引用已经存在于网络仓库里的docker image，在其基础上继续定制的新docker镜像。所谓引用就是在docker file的开头写一句基于哪个镜像（语法是：`FROM image库/image名`）。执行**docker file**生成新docker image的操作，叫做**构建**。整个构建过程可以理解为：将源docker image运行起来，按照docker file里的命令安装一些软件或者做一些配置，这一切做完以后，将整个环境制作成一个新docker image。由于image具有不可直接修改的属性，如果想从源docker image里删除一些软件后形成新的docker image，那么就在docker file里写入删除某些软件的语句，新构建生成的docker image运行起来就没有那些软件了。docker术语体系中，每执行一条docker file里的命令，叫做增加一个“层”，无论这个“层”干的活是安装还是删除。打个比方，类似于抹墙，源镜像相当于砖头墙体，每执行一条docker file里的语句就相当于在墙上抹一层涂料。不能把旧涂料扣掉，只能在其上再覆盖一层。
+**docker file**可以引用已经存在于网络仓库里的docker image，在其基础上继续定制的新docker镜像。所谓引用就是在docker file的开头写一句基于哪个镜像（语法是：`FROM image库/image名`）。执行docker file生成新docker image的操作，叫做**“构建”**。整个构建过程可以理解为：将源docker image运行起来，按照docker file里的命令安装一些软件或者做一些配置，这一切做完以后，将整个环境制作成一个新docker image。但实际上源image并不运行，只是在docker file里写一些对其的操作。由于image具有不可直接修改的属性，如果想从源docker image里删除某些软件后形成新的docker image，那么就在docker file里写入删除那些软件的语句，新构建生成的docker image*运行起来*就没有那些软件了，但新docker image本身不比源image小。docker术语体系中，每执行一条docker file里的命令，叫做增加一个“层”，无论这个“层”干的活是安装还是删除。
 
-引用带来的好处是减少制作新docker image所需要的处理时间。举个例子：源镜像是Linux操作系统，那么可以基于这个镜像制作出Linux+Apache+PHP镜像来，如果要制作标准的LAMP（Linux+Apache+MySQL+PHP）web服务器，只需要引用Linux+Apache+PHP这个源镜像，再在docker file里添加一句：下载并安装MySQL（语法请参考docker file相关文档，这里不多介绍），就成了。从一个已经有了一些组件的源docker镜像执行一两步安装，远远快于从一个只有Linux系统的源docker镜像执行多个安装步骤。这样，就节省了时间。执行这个docker file之后，迅速地出现了一个标准LAMP镜像。可以看出，我们想让多少工序自动化，就可以将多少工序写在docker file里。甚至连代码上传也可以用Docker file来自动化完成。从而节省大量的时间以及人工重复性工作。
+引用带来的好处是减少制作新docker image所需要的处理时间。举个例子：源镜像是Linux操作系统，那么可以引用它并制作出一个含有Linux+Apache+PHP的docker镜像，现在就有了两个可以充当源镜像的docker镜像。如果要制作标准的LAMP（Linux+Apache+MySQL+PHP）web服务器的docker镜像，只需要引用Linux+Apache+PHP这个源镜像，再在docker file里添加一句：下载并安装MySQL（语法请参考docker file相关文档，这里不多介绍），就成了。节约了下载安装MySQL和PHP的时间。从这个过程也可以看出，我们想让多少工序自动化，就可以将多少工序写在docker file里。甚至连web应用代码上传也可以用docker file来自动化完成。最终，只需要写好docker file，不停更新代码，就实现了web应用的全自动上线。从而节省大量的时间以及人工重复性工作。
 
-docker image，可以在**容器**中运行。将docker image调入容器运行的动作叫做**“部署”**。容器由**Docker node**提供，那Docker node又是什么呢？原始时代，一台硬件机器操作系统里安装虚拟化软件（例如Vmware），它就成为了虚拟机母平台，在其上可以建多个不同的虚拟机，再在虚拟机里安装不同的操作系统和软件。Docker体系中，**docker软件**（也就是很多文章里提到的下载、安装、配置的docker server）是虚拟化软件，docker node就是一个安装了docker软件的硬件机器（或着不用硬件机器，用VMware和其他种类的虚拟机），从而成为了Docker虚拟机机母平台，docker虚拟机则是容器。通过操作docker软件，可以在docker node上创建多个容器。如果遇到原始时代的那个经典问题——机器性能不够，需要把开发环境迁移到性能更好的机器上去，那么只需要将docker image重新部署到新容器上。
+docker image需要在**容器**中运行。将docker image调入容器运行的动作叫做**“部署”**。容器由**Docker node**提供，那Docker node又是什么呢？原始时代，一台硬件机器操作系统里安装虚拟化软件（例如Vmware），它就成为了虚拟机母平台，在其上可以建多个虚拟机，再在虚拟机里安装不同的操作系统和软件。Docker体系中，**docker软件**（也就是很多文章里提到的下载、安装、配置的docker server）是虚拟化软件，docker node就是一个安装了docker软件的硬件机器（或着不用硬件机器，用VMware和其他种类的虚拟机），从而成为了Docker虚拟机机母平台，docker虚拟机则是容器。通过操作docker软件，可以在docker node上创建多个容器。如果遇到原始时代的那个经典问题——机器性能不够，需要把开发环境迁移到性能更好的机器上去，那么只需要将docker image重新部署到新容器上。
 
 这条流水线完美地复制了Norton Ghost的工作方法，还更进一步地予以了创新。而Docker Hub和[DaoCloud][2]这样的云Docker服务商，为这条流水线完成了最后一环——使所有的步骤都在网络上进行。它们存储了足够多种类的源docker镜像，使定制image需要的安装步骤尽可能少，甚至可以直接拿源docker镜像来用；用足够强大的服务器来构建docker image；提供docker node和容器，IP地址，域名，还有从[GitHub][3]和其他代码仓库下载docker file以及我们代码的能力。这相当于：image仓库、构建image的服务器，docker node以及其上的容器，均可以布置在一个云服务商内部的局域网中。从而节省了下载image的时间，使用我们自己不够快的电脑制作image的时间，配置IP和域名的时间（还节省了配置相关防火墙，负载均衡的时间）。
 
