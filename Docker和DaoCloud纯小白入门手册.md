@@ -85,7 +85,7 @@ docker image运行在**container（容器）**中。将docker image调入容器�
 
 容器由**Docker node**提供。Docker体系中，**docker软件**（也就是很多文章里提到的下载、安装、配置的docker server）是虚拟化软件（回想一下VMware软件），docker node就是一个安装了docker软件的硬件机器（或者不用硬件机器，而是用虚拟机或VPS），从而成为了Docker虚拟机母平台，docker虚拟机就是容器（回想一下没有安装操作系统的VMware虚拟机）。通过操作docker软件，可以在docker node上创建多个容器。
 
-![容器](img/container)
+![容器](img/container.png)
 
 Docker能够模拟“clone”的关键原因在于：容器与原始时代虚拟机实质上不同，它并不被母平台硬件不同所干扰，在docker镜像看来每个容器硬件环境都一样，也就不需要运行docker镜像后再手工去安装不同的驱动。表现与VMware虚拟机类似，但采用的是“沙盒”技术。
 
