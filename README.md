@@ -1,5 +1,5 @@
 # wechat-psn-backend
-一个微信公众号（服务号，Public Service Number）后台环境（Linux+python+werobot+web），使用[DaoCloud网站][1]或[灵雀云][4]来管理运行，使用者几分钟即可拥有自己的类似SAE/GAE/BAE云的应用开发平台，只要部署了自己的代码，即可在几秒钟内提供微信订阅号/服务号后台服务。
+一个微信公众号（服务号，Public Service Number）后台环境（Linux+python+werobot+web），使用[DaoCloud网站][1]或[灵雀云][4]来管理运行，使用者几分钟即可拥有自己的类似SAE/GAE/BAE云的应用开发平台，只要部署了自己的代码，即可在几秒钟内提供微信订阅号/服务号后台服务。这个平台使用纯Python、CherryPy和WeRoBot构建。在这个平台上开发请[阅读WeRoBot的文档][5]。或者您也可以把Dockerfile改改，安装成您自己喜欢的应用框架和web服务器。
 
 ## 起源
 这个项目的起源是被逼无奈。起初，在SAE上申请个账号，申请了应用空间。结果遇到了巨大的麻烦：
@@ -23,7 +23,12 @@
 
 那么对于开发者，这个Repository到底有什么好处呢？这个Repository里有构建环境必要的Dockfile和配置文件yaml，只需要fork这个Repository，然后您本人的GitHub目录下就有了同名repository，把自己的Python代码push到这个同名repository里，使用[DaoCloud][1]，点两下鼠标就能在几分钟之内发布自己的微信服务号后台，在微信公众号配置页面开发者模式中关联这个后台，微信公众号立刻可用。相比较原先需要几个小时乃至几天的安装、配置环境、部署代码、运行，大大节省了时间。
 
+## 测试
+在DaoCloud或灵雀云上运行起来之后，使用微信提供的[测试页面][6]，URL填写为在DaoCloud或灵雀云获得的应用URL，Token填写为testrobot，加密调试选“兼容模式”，其他的按照微信文档说明填写。即可向这个后台应用发消息并获得回复。
+
 [1]: <http://www.daocloud.io>
 [2]: <http://www.qiniu.com>
 [3]: <./Docker和DaoCloud纯小白入门手册.md>
 [4]: <http://www.alauda.cn>
+[5]: <https://werobot.readthedocs.org/en/latest/>
+[6]: <https://mp.weixin.qq.com/debug/cgi-bin/apiinfo?t=index&type=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95&form=%E6%96%87%E6%9C%AC%E6%B6%88%E6%81%AF>
