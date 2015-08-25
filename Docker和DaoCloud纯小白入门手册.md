@@ -6,11 +6,11 @@
 
 乔布斯对时间的理解，促使我也有了写这篇文章的动力。因为：[Docker][1]和[DaoCloud][2]是划时代的伟大工具。web程序开发者、测试员、系统管理员们利用它们能够节约巨量的时间，加快产品上线进而也能节省用户（你、我、每个人）的时间。然而，居然没有一篇为纯粹只懂得个人电脑的小白所写的入门手册以至于这么优秀的工具无法迅速普及从而拯救N个人的生命，这简直太令人发指！
 
+工具的产生是为了解决问题，那么先来看看世界上存在着什么样的问题需要Docker和DaoCloud来解决。
+
 ## 原始时代
 
 ![Ghost](./ghost.png)
-
-工具的产生是为了解决问题，那么先来看看世界上存在着什么样的问题需要Docker和DaoCloud来解决。
 
 回忆一下Windows 98年代使用广泛的Norton Ghost软件（现在属于Symantec公司）。Ghost软件的作用是对可运行的系统环境做clone（克隆），形成一个镜像（image），以便Windows 98崩溃以后能够从镜像中迅速恢复一个可用的系统环境。这解决了频繁重装Windows 98的麻烦，而且从镜像恢复比安装更节约时间。它有几种常见用法：
 
@@ -100,7 +100,7 @@ Docker能够模拟“clone”的关键原因在于：容器与原始时代虚拟
 
 ## 与DaoCloud共舞
 
-至此，Docker和DaoCloud是什么以及能做什么，都已经介绍完毕。那么我们怎么利用这套系统呢？先去[DaoCloud][2]注册一个帐户，个人设置中关联自己的GitHub帐号。在[GitHub][3]里新建一个repository，存入Docker file文件。也可以在[GitHub][3]上找找别人的docker file，fork到自己[GitHub][3]帐户下的Repository里。跟着[DaoCloud][2]的[入门手册][4]和[视频][5]，在DaoCloud控制面板里点击“构建”（选择自己GitHub里有dockerfile的那个repository）、“部署”、点完这几个按钮后，便能获取一个运行着的开发环境。
+至此，Docker和DaoCloud是什么以及能做什么，都已经介绍完毕。那么我们怎么利用这套系统呢？先去[DaoCloud][2]注册一个帐户，个人设置中关联自己的GitHub帐号。在[GitHub][3]里新建一个repository，存入Docker file文件。也可以在[GitHub][3]上找找别人的docker file，fork到自己[GitHub][3]帐户下的Repository里。跟着[DaoCloud][2]的[入门手册][4]和[视频][5]，在DaoCloud控制面板里点击“构建”（选择自己GitHub里有dockerfile的那个repository）、“部署”、点完这几个按钮后，便能获取一个运行着的服务器。
 
 可能有些人还想在开发环境运行起来以后登录进去，以便再做一些手工工作或者上传代码，那么找找编写docker file的参考资料，里面会有介绍。其实呢，完全可以把自己的代码也放在GitHub用来存储docker file的同一个repository里，然后docker file里写一句`COPY ./ /tmp`，在docker镜像部署到容器运行以后，这些代码在/tmp目录里。要是想把一个index.html放在/www/html/中呢？Docker file里写成：`COPY ./ /www/html`就可以了。
 
