@@ -77,7 +77,7 @@ Docker术语体系中，每执行一条docker file里的命令，叫做增加一
 
 引用带来的好处是减少制作新docker镜像所需要写在docker file里的命令。举个例子：源镜像是Linux操作系统，那么可以引用它并制作出一个含有Linux+Apache+PHP的docker镜像，现在就有了两个可以充当源镜像的docker镜像。如果要制作标准的LAMP（Linux+Apache+MySQL+PHP）web服务器的docker镜像，只需要引用Linux+Apache+PHP这个源镜像，再在docker file里添加一句：下载并安装MySQL（语法请参考docker file相关文档，这里不多介绍），就成了。
 
-![构建]()
+![构建](img/build.png)
 
 ### Docker node与容器
 
