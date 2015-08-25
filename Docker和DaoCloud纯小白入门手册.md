@@ -54,12 +54,12 @@ Ghost方式解决的是第1和3类型的问题，而第3类型并没解决好（
 
 ## 解决原始时代的问题
 
-终于，一群聪明人实在受不了天天把时间耗费在无穷无尽的安装配置中。他们发明了**Docker**来解决这些问题。[Docker][1]用**docker image**（中文叫做**Docker镜像**）来代替原始时代的镜像（或光盘），用**docker file**来取代自动安装脚本，用**docker node**来代替虚拟机母平台，用**容器**来代替虚拟机。综合了原始时代那些工具的所有的优点使得Linux和网络实现了完全自动化。
+终于，一群聪明人实在受不了天天把时间耗费在无穷无尽的安装配置中。他们发明了**Docker**来解决这些问题。[Docker][1]用**docker image**（中文叫做**Docker镜像**）来代替原始时代的镜像（或光盘），用**docker file**来取代自动安装脚本，用**docker node**来代替虚拟机母平台，用**container（容器）**来代替虚拟机。综合了原始时代那些工具的所有的优点使得Linux和网络实现了完全自动化。
 
 - 镜像（或光盘）==> Docker image
 - 安装脚本 ==> Docker file
 - 安装了虚拟机软件的服务器 ==> Docker node
-- 虚拟机（未安装操作系统的）==> 容器
+- 虚拟机（未安装操作系统的）==> Docker container
 
 ### Docker image与Docker file
 
@@ -79,13 +79,13 @@ Docker术语体系中，每执行一条docker file里的命令，叫做增加一
 
 ![构建](img/build.png)
 
-### Docker node与容器
+### Docker node与Docker container
 
-docker image运行在**容器**中。将docker image调入容器运行的动作叫做**“部署”**。将指定的docker image部署到指定的容器，并完成启动，就产生了一个**“服务”**。
+docker image运行在**container（容器）**中。将docker image调入容器运行的动作叫做**“部署”**。将指定的docker image部署到指定的容器，并完成启动，就产生了一个**“服务”**。
 
 容器由**Docker node**提供。Docker体系中，**docker软件**（也就是很多文章里提到的下载、安装、配置的docker server）是虚拟化软件（回想一下VMware软件），docker node就是一个安装了docker软件的硬件机器（或者不用硬件机器，而是用虚拟机或VPS），从而成为了Docker虚拟机母平台，docker虚拟机就是容器（回想一下没有安装操作系统的VMware虚拟机）。通过操作docker软件，可以在docker node上创建多个容器。
 
-![容器]()
+![容器](img/container)
 
 Docker能够模拟“clone”的关键原因在于：容器与原始时代虚拟机实质上不同，它并不被母平台硬件不同所干扰，在docker镜像看来每个容器硬件环境都一样，也就不需要运行docker镜像后再手工去安装不同的驱动。表现与VMware虚拟机类似，但采用的是“沙盒”技术。
 
