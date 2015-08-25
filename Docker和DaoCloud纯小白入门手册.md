@@ -69,11 +69,13 @@ Ghost方式解决的是第1和3类型的问题，而第3类型并没解决好（
 
 执行docker file生成新docker image的操作，叫做**“构建”**。整个构建过程可以想象成模拟clone：将源docker image运行起来，按照docker file里的命令安装一些软件或者做一些配置，这一切做完以后，将整个环境制作成一个新docker image。
 
-实际上源image并不运行，只是在docker file里写一些对其的操作。由于image具有不可直接修改的属性，这些操作语句将被包含在新docker镜像里**（新docker镜像=源docker镜像+docker file）**，新docker镜运行的时候才会执行docker file中的命令。若一个更新的docker file引用了这个"新docker镜像"，构建的实质是将更新的docker file里的操作命令与"新docker镜像"中包含的docker file命令合并，并添加到那个更新的docker镜像里。所以，构建的本质是脚本安装，却表现为clone。Docker术语体系中，每执行一条docker file里的命令，叫做增加一个**“层”**，无论这个“层”干的活是安装还是删除。如果想从源docker镜像里删除某些软件后形成新的docker镜像，那么就在docker file里写入删除那些软件的语句，新构建生成的docker 镜像*运行起来*就没有那些软件了。由前述构建的实质可知：新docker 镜像本身不比源docker镜像小。
+实际上源image并不运行，只是在docker file里写一些对其的操作，这些操作语句将被包含在新docker镜像里**（新docker镜像=源docker镜像+docker file）**，新docker镜像*运行*的时候才会执行docker file中的命令。
 
-引用带来的好处是减少制作新docker image所需要写在docker file里的命令。举个例子：
+若一个更新的docker file引用了这个"新docker镜像"，构建的实质是将更新的docker file里的操作命令与"新docker镜像"中包含的docker file命令合并，并添加到那个更新的docker镜像里。所以，构建的本质是脚本安装，却表现为clone。
 
-源镜像是Linux操作系统，那么可以引用它并制作出一个含有Linux+Apache+PHP的docker镜像，现在就有了两个可以充当源镜像的docker镜像。如果要制作标准的LAMP（Linux+Apache+MySQL+PHP）web服务器的docker镜像，只需要引用Linux+Apache+PHP这个源镜像，再在docker file里添加一句：下载并安装MySQL（语法请参考docker file相关文档，这里不多介绍），就成了。
+Docker术语体系中，每执行一条docker file里的命令，叫做增加一个**“层”**，无论这个“层”干的活是安装还是删除。由于镜像具有不可直接修改的性质，如果想从源docker镜像里删除某些软件后形成新的docker镜像，那么就在docker file里写入删除那些软件的语句，新构建生成的docker 镜像*运行起来*就没有那些软件了。由前述构建的实质可知：新docker 镜像本身不比源docker镜像小。
+
+引用带来的好处是减少制作新docker镜像所需要写在docker file里的命令。举个例子：源镜像是Linux操作系统，那么可以引用它并制作出一个含有Linux+Apache+PHP的docker镜像，现在就有了两个可以充当源镜像的docker镜像。如果要制作标准的LAMP（Linux+Apache+MySQL+PHP）web服务器的docker镜像，只需要引用Linux+Apache+PHP这个源镜像，再在docker file里添加一句：下载并安装MySQL（语法请参考docker file相关文档，这里不多介绍），就成了。
 
 ![构建]()
 
