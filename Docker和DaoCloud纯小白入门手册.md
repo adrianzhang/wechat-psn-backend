@@ -10,7 +10,7 @@
 
 ## 原始时代
 
-![Ghost](./ghost.png)
+![Ghost](img/ghost.png)
 
 回忆一下Windows 98年代使用广泛的Norton Ghost软件（现在属于Symantec公司）。Ghost软件的作用是对可运行的系统环境做clone（克隆），形成一个镜像（image），以便Windows 98崩溃以后能够从镜像中迅速恢复一个可用的系统环境。这解决了频繁重装Windows 98的麻烦，而且从镜像恢复比安装更节约时间。它有几种常见用法：
 
