@@ -24,7 +24,6 @@
 那么对于开发者，这个Repository到底有什么好处呢？这个Repository里有构建环境必要的Dockfile和配置文件yaml，只需要fork这个Repository，然后您本人的GitHub目录下就有了同名repository，把自己的Python代码push到这个同名repository里，使用[DaoCloud][1]，点两下鼠标就能在几分钟之内发布自己的微信服务号后台，在微信公众号配置页面开发者模式中关联这个后台，微信公众号立刻可用。相比较原先需要几个小时乃至几天的安装、配置环境、部署代码、运行，大大节省了时间。作为演示，此Repo中已经放置了index.py，在任何一个Docker云服务商那里运用这个Repo生成镜像并部署成应用，那么马上就可以把微信公众号后台开发者模式绑定这个应用，Token使用testrobot。关注自己的公众号，发个消息，看看会发生什么吧。
 
 ## 测试方法
-
 在DaoCloud或灵雀云上运行起来之后，使用微信提供的[测试页面][6]，URL填写为在DaoCloud或灵雀云获得的应用URL，Token填写为testrobot，加密调试选“兼容模式”，其他的按照微信文档说明填写。即可向这个后台应用发消息并获得回复。
 
 [1]: <http://www.daocloud.io>
