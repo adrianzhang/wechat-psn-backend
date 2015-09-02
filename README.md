@@ -26,7 +26,7 @@
 ## 测试方法
 在DaoCloud或灵雀云上运行起来之后，使用微信提供的[测试页面][6]，URL填写为在DaoCloud或灵雀云获得的应用URL，Token填写为testrobot，加密调试选“兼容模式”，其他的按照微信文档说明填写。即可向这个后台应用发消息并获得回复。
 
-[1]: <http://www.daocloud.io>
+[1]: <https://account.daocloud.io/signup?invite_code=nsvv3jvpfve4ejlapnze>
 [2]: <http://www.qiniu.com>
 [3]: <./Docker和DaoCloud纯小白入门手册.md>
 [4]: <http://www.alauda.cn>

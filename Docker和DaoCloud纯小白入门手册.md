@@ -119,7 +119,7 @@ Docker能够模拟“clone”的关键原因在于：容器与原始时代虚拟
 
 
 [1]: <http://www.docker.com>
-[2]: <http://www.daocloud.io>
+[2]: <https://account.daocloud.io/signup?invite_code=nsvv3jvpfve4ejlapnze>
 [3]: <http://www.github.com>
 [4]: <http://help.daocloud.io/>
 [5]: <http://7u2psl.com2.z0.glb.qiniucdn.com/daocloud_small.mp4>
