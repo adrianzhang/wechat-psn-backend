@@ -15,6 +15,9 @@
 ## [灵雀云][4]
 这是另一个类似DaoCloud的网站，用来作为网络Docker系统实现，可以网络式构建docker image，然后直接部署在灵雀云的容器中，上线！
 
+## [时速云][7]
+这个网站是比较早的一个Docker云服务商。在这个网站上面使用该repo和在上面两个网站的使用方法是一致的。
+
 ## Docker
 
 若第一次看到Docker这个词，请参考[《Docker和DaoCloud纯小白入门手册》][3]来了解它。若有了一定了解，那么这个Repository里的dockerfile就是用来构建docker image的。目标是形成一个开箱即用的用于开发微信公众号后台的App Engine，当然了，这个App Engine与其他SAE/GAE等不同的地方在于它完全是属于开发者自己的。可以随便更改环境配置，比如增加个框架什么的。
@@ -32,3 +35,4 @@
 [4]: <http://www.alauda.cn>
 [5]: <https://werobot.readthedocs.org/en/latest/>
 [6]: <https://mp.weixin.qq.com/debug/cgi-bin/apiinfo?t=index&type=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95&form=%E6%96%87%E6%9C%AC%E6%B6%88%E6%81%AF>
+[7]: <http://www.tenxcloud.com>
